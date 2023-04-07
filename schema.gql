@@ -1,0 +1,71 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type User {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+type Artist {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+type Game {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+type Query {
+  user(id: Int!): User!
+  artists: [Artist!]!
+  artist(id: Int!): Artist!
+  games: [Game!]!
+  game(id: Int!): Game!
+}
+
+type Mutation {
+  createUser(createUserInput: CreateUserInput!): User!
+  updateUser(updateUserInput: UpdateUserInput!): User!
+  removeUser(id: Int!): User!
+  createArtist(createArtistInput: CreateArtistInput!): Artist!
+  updateArtist(updateArtistInput: UpdateArtistInput!): Artist!
+  removeArtist(id: Int!): Artist!
+  createGame(createGameInput: CreateGameInput!): Game!
+  updateGame(updateGameInput: UpdateGameInput!): Game!
+  removeGame(id: Int!): Game!
+}
+
+input CreateUserInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateUserInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
+input CreateArtistInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateArtistInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
+input CreateGameInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateGameInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
