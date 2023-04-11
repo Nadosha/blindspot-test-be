@@ -3,13 +3,30 @@
 # ------------------------------------------------------
 
 type User {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  _id: String!
+
+  """User firstName """
+  userName: String!
+
+  """User firstName """
+  password: String!
+
+  """User gender """
+  gender: String!
 }
 
-type Artist {
-  """Example field (placeholder)"""
-  exampleField: Int!
+type CreateUserOutput {
+  """Result message """
+  msg: String!
+
+  """ID of user that have been created """
+  userId: String!
+
+  """User Name of user that have been created """
+  userName: String!
+
+  """User Gender of user that have been created """
+  gender: String!
 }
 
 type Game {
@@ -18,44 +35,40 @@ type Game {
 }
 
 type Query {
-  user(id: Int!): User!
-  artists: [Artist!]!
-  artist(id: Int!): Artist!
+  user(id: String!): User!
   games: [Game!]!
   game(id: Int!): Game!
 }
 
 type Mutation {
-  createUser(createUserInput: CreateUserInput!): User!
+  createUser(input: CreateUserInput!): CreateUserOutput!
   updateUser(updateUserInput: UpdateUserInput!): User!
   removeUser(id: Int!): User!
-  createArtist(createArtistInput: CreateArtistInput!): Artist!
-  updateArtist(updateArtistInput: UpdateArtistInput!): Artist!
-  removeArtist(id: Int!): Artist!
   createGame(createGameInput: CreateGameInput!): Game!
   updateGame(updateGameInput: UpdateGameInput!): Game!
   removeGame(id: Int!): Game!
 }
 
 input CreateUserInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  """User userName """
+  userName: String!
+
+  """User Password """
+  password: String!
+
+  """User Gender """
+  gender: String!
 }
 
 input UpdateUserInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Int!
-}
+  """User userName """
+  userName: String
 
-input CreateArtistInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
-}
+  """User Password """
+  password: String
 
-input UpdateArtistInput {
-  """Example field (placeholder)"""
-  exampleField: Int
+  """User Gender """
+  gender: String
   id: Int!
 }
 
