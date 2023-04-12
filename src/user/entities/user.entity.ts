@@ -22,6 +22,13 @@ export class User {
   @Prop()
   @Field(() => String, { description: 'User gender ' })
   gender: string;
+
+  @Prop()
+  @Field(() => Number, {
+    description: 'How much point user earn in total ',
+    defaultValue: 1,
+  })
+  score: number;
 }
 
 @ObjectType()
@@ -41,6 +48,9 @@ export class CreateUserOutput {
     description: 'User Gender of user that have been created ',
   })
   gender: string;
+
+  @Field(() => Number, { description: 'How much point user earn in total ' })
+  score: number;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

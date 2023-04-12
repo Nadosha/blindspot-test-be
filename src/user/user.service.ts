@@ -21,6 +21,7 @@ export class UserService {
     const newUser = new this.userModel({
       userName: username,
       password: hashedPassword,
+      score: 0,
       gender,
     });
 
@@ -32,6 +33,7 @@ export class UserService {
         userId: newUser._id,
         userName: newUser.userName,
         gender: newUser.gender,
+        score: newUser.score,
       };
     } catch (e) {
       throw new Error('User Name is already registered');

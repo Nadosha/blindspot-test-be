@@ -13,6 +13,9 @@ type User {
 
   """User gender """
   gender: String!
+
+  """How much point user earn in total """
+  score: Float!
 }
 
 type CreateUserOutput {
@@ -27,6 +30,9 @@ type CreateUserOutput {
 
   """User Gender of user that have been created """
   gender: String!
+
+  """How much point user earn in total """
+  score: Float!
 }
 
 type Game {
@@ -58,6 +64,9 @@ input CreateUserInput {
 
   """User Gender """
   gender: String!
+
+  """How much point user earn in total """
+  score: Float
 }
 
 input UpdateUserInput {
@@ -69,6 +78,9 @@ input UpdateUserInput {
 
   """User Gender """
   gender: String
+
+  """How much point user earn in total """
+  score: Float
   id: Int!
 }
 
