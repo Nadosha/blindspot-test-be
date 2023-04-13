@@ -3,15 +3,12 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Schema as MongooseSchema } from 'mongoose';
 
 @Schema()
-@ObjectType()
+@ObjectType('User')
 export class User {
   @Field(() => String)
   _id: MongooseSchema.Types.ObjectId;
 
-  @Prop({
-    type: String,
-    required: true,
-  })
+  @Prop()
   @Field(() => String, { description: 'User firstName ' })
   userName: string;
 

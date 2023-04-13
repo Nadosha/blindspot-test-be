@@ -35,24 +35,72 @@ type CreateUserOutput {
   score: Float!
 }
 
+type Album {
+  _id: String!
+
+  """Album ID - ID that comes from iTunes Provider"""
+  albumID: String!
+
+  """Title/Name of Album"""
+  title: String!
+
+  """Artist Name"""
+  artist: String!
+
+  """Artist ID - comes from iTunes provider"""
+  artistID: String!
+
+  """URL of album's cover image"""
+  cover: String!
+}
+
+type Round {
+  _id: String!
+
+  """Indicates is round completed"""
+  isCompleted: Boolean!
+
+  """Is answer correct or not """
+  isCorrect: Boolean
+
+  """Album that asked in current round """
+  requestedAlbum: Album!
+
+  """Albums that proposed for user choice"""
+  albums: [Album!]!
+}
+
 type Game {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  _id: String!
+
+  """User who initiate this Game"""
+  user: String!
+
+  """Indicates if game was completed"""
+  isCompleted: Boolean!
+
+  """User current stage"""
+  currentRound: String!
+
+  """List of rounds in Game"""
+  rounds: [Round!]!
 }
 
 type Query {
   user(id: String!): User!
   games: [Game!]!
-  game(id: Int!): Game!
+  currentGame(user: String!): Game!
+  albums: [Album!]!
+  album(id: Int!): Album!
 }
 
 type Mutation {
   createUser(input: CreateUserInput!): CreateUserOutput!
   updateUser(updateUserInput: UpdateUserInput!): User!
   removeUser(id: Int!): User!
-  createGame(createGameInput: CreateGameInput!): Game!
-  updateGame(updateGameInput: UpdateGameInput!): Game!
-  removeGame(id: Int!): Game!
+  createGame(createGameInput: CreateGameInput!): Boolean!
+  updateGame(updateGameInput: UpdateGameInput!): Boolean!
+  createAlbum: Boolean!
 }
 
 input CreateUserInput {
@@ -85,12 +133,52 @@ input UpdateUserInput {
 }
 
 input CreateGameInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  """User who initiate this Game"""
+  user: String!
 }
 
 input UpdateGameInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Int!
+  """User who initiate this Game"""
+  user: String
+  _id: String!
+
+  """Indicates if game was completed"""
+  isCompleted: Boolean!
+
+  """User current stage"""
+  currentRound: String
+  round: RoundInput!
+}
+
+input RoundInput {
+  _id: String!
+
+  """Indicates is round completed"""
+  isCompleted: Boolean!
+
+  """Is answer correct or not """
+  isCorrect: Boolean!
+
+  """Album that asked in current round """
+  requestedAlbum: CreateAlbumInput
+
+  """Albums that proposed for user choice"""
+  albums: [CreateAlbumInput!]
+}
+
+input CreateAlbumInput {
+  """Album ID - ID that comes from iTunes Provider"""
+  albumID: String!
+
+  """Title/Name of Album"""
+  title: String!
+
+  """Artist Name"""
+  artist: String!
+
+  """Artist ID - comes from iTunes provider"""
+  artistID: String!
+
+  """URL of album's cover image"""
+  cover: String!
 }
