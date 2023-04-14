@@ -92,10 +92,18 @@ export class GamesService {
     }
 
     try {
-      const up = await this.gameModel.updateOne(
+      await this.gameModel.updateOne(
         {
-          'rounds.isCompleted': { $all: [true] },
           _id: updateGameInput._id,
+          $and: [
+            {
+              rounds: {
+                $not: {
+                  $elemMatch: { isCompleted: false },
+                },
+              },
+            },
+          ],
         },
         {
           $set: {
