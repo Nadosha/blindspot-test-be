@@ -14,7 +14,7 @@ export class GamesResolver {
     return this.gamesService.findAll();
   }
 
-  @Query(() => Game, { name: 'currentGame' })
+  @Query(() => Game, { name: 'currentGame', nullable: true })
   getCurrentGame(
     @Args('user', { type: () => String }) user: MongooseSchema.Types.ObjectId,
   ) {

@@ -6,6 +6,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Album } from '../albums/entities/album.entity';
 import { Game, Round } from './entities/game.entity';
 import { randChoice } from '../utils/getRandomeVal';
+import { User } from '../user/entities/user.entity';
 
 @Injectable()
 export class GamesService {
@@ -18,15 +19,19 @@ export class GamesService {
 
     @InjectModel(Round.name)
     private readonly roundModel: Model<Round>,
+
+    @InjectModel(User.name)
+    private readonly userModel: Model<User>,
   ) {}
 
   async create(createGameInput: CreateGameInput) {
     const rounds = [];
-    for (let i = 1; i <= 2; i++) {
+
+    for (let i = 1; i <= 5; i++) {
       const getAlbums = await this.albumModel
         .find()
         .limit(8)
-        .skip(Math.floor(Math.random() * 17));
+        .skip(Math.floor(Math.random() * 16));
 
       const requestedAlbum = randChoice(getAlbums);
 
@@ -59,8 +64,8 @@ export class GamesService {
     return `This action returns all games`;
   }
 
-  findCurrentGame(user: MongooseSchema.Types.ObjectId) {
-    const currentGame = this.gameModel.findOne({
+  async findCurrentGame(user: MongooseSchema.Types.ObjectId) {
+    const currentGame = await this.gameModel.findOne({
       user: user,
       isCompleted: false,
     });
@@ -72,6 +77,13 @@ export class GamesService {
     _id: MongooseSchema.Types.ObjectId,
     updateGameInput: UpdateGameInput,
   ) {
+    const game = await this.gameModel.findOne({
+      _id: _id,
+      isCompleted: false,
+    });
+
+    const currentRound = game?.rounds[game.currentRound - 1];
+
     try {
       await this.gameModel.updateOne(
         {
@@ -79,10 +91,15 @@ export class GamesService {
           'rounds._id': updateGameInput.round._id,
         },
         {
+          $inc: {
+            currentRound: 1,
+          },
+          isCompleted: game.currentRound >= 5,
           $set: {
             'rounds.$': {
               isCompleted: updateGameInput.round.isCompleted,
               isCorrect: updateGameInput.round.isCorrect,
+              ...currentRound,
             },
           },
         },
@@ -111,6 +128,15 @@ export class GamesService {
           },
         },
       );
+
+      if (updateGameInput.round.isCorrect) {
+        this.userModel.updateOne({
+          _id: game.user,
+          $inc: {
+            score: 5,
+          },
+        });
+      }
     } catch (e) {
       throw new Error(`Failed to update Game ${e}`);
     }

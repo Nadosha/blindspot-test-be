@@ -4,6 +4,7 @@ import { GamesResolver } from './games.resolver';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Game, GameSchema, Round, RoundSchema } from './entities/game.entity';
 import { Album, AlbumSchema } from '../albums/entities/album.entity';
+import { User, UserSchema } from '../user/entities/user.entity';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { Album, AlbumSchema } from '../albums/entities/album.entity';
         name: Round.name,
         schema: RoundSchema,
       },
+      { name: User.name, schema: UserSchema },
     ]),
   ],
   exports: [GamesService],

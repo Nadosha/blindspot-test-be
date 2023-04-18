@@ -24,7 +24,7 @@ export class Round {
   @Field(() => Album, { description: 'Album that asked in current round ' })
   requestedAlbum: Album;
 
-  @Prop({ type: [{ type: [AlbumSchema], ref: 'Round' }] })
+  @Prop({ type: [{ type: AlbumSchema, ref: 'Album' }] })
   @Field(() => [Album], {
     description: 'Albums that proposed for user choice',
   })

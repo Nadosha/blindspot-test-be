@@ -89,7 +89,7 @@ type Game {
 type Query {
   user(id: String!): User!
   games: [Game!]!
-  currentGame(user: String!): Game!
+  currentGame(user: String!): Game
   albums: [Album!]!
   album(id: Int!): Album!
 }
